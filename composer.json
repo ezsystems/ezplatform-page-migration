@@ -1,0 +1,40 @@
+{
+    "name": "ezsystems/ezplatform-page-migration",
+    "description": "eZ Platform Page FieldType Migration Tool",
+    "license": "TTL-2.0",
+    "type": "ezplatform-bundle",
+    "authors": [
+        {
+            "name": "eZ Systems",
+            "email": "dev-team@ez.no"
+        }
+    ],
+    "repositories": [
+        { "type": "composer", "url": "https://updates.ez.no/ttl" }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "ezsystems/ezpublish-kernel": "^7.2",
+        "ezsystems/ezplatform-page-fieldtype": "^1.0",
+        "symfony/symfony": "^3.4.0",
+        "doctrine/dbal": "^2.7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.1",
+        "friendsofphp/php-cs-fixer": "^2.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "EzSystems\\EzPlatformPageMigration\\": "src/lib/",
+            "EzSystems\\EzPlatformPageMigrationBundle\\": "src/bundle/"
+        }
+    },
+    "scripts": {
+        "fix-cs": "@php ./vendor/bin/php-cs-fixer fix -v --show-progress=estimating"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

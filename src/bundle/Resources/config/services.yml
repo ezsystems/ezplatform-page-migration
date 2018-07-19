@@ -1,0 +1,38 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+        public: true
+
+    EzSystems\EzPlatformPageMigrationBundle\Command\MigrateDataCommand:
+        arguments:
+            $contentHandler: '@ezpublish.spi.persistence.legacy.content.handler'
+            $contentGateway: '@ezpublish.persistence.legacy.content.gateway'
+            $contentTypeHandler: '@ezpublish.spi.persistence.legacy.content_type.handler'
+            $converterRegistry: '@ezpublish.persistence.legacy.field_value_converter.registry'
+            $pageGateway: '@EzSystems\EzPlatformPageFieldType\FieldType\Page\Storage\DoctrineGateway'
+        tags:
+            - { name: 'console.command', command: 'ezplatform:page:migrate' }
+
+    EzSystems\EzPlatformPageMigration\Converter\AttributeConverter\DefaultConverter:
+        tags:
+            - { name: 'ezplatform.fieldtype.ezlandingpage.migration.attribute.converter', block_type: 'tag'}
+            - { name: 'ezplatform.fieldtype.ezlandingpage.migration.attribute.converter', block_type: 'contentlist'}
+            - { name: 'ezplatform.fieldtype.ezlandingpage.migration.attribute.converter', block_type: 'embed'}
+            - { name: 'ezplatform.fieldtype.ezlandingpage.migration.attribute.converter', block_type: 'banner'}
+            - { name: 'ezplatform.fieldtype.ezlandingpage.migration.attribute.converter', block_type: 'gallery'}
+            - { name: 'ezplatform.fieldtype.ezlandingpage.migration.attribute.converter', block_type: 'video'}
+            - { name: 'ezplatform.fieldtype.ezlandingpage.migration.attribute.converter', block_type: 'rss'}
+
+    EzSystems\EzPlatformPageMigration\Converter\AttributeConverter\CollectionConverter:
+        tags:
+            - { name: 'ezplatform.fieldtype.ezlandingpage.migration.attribute.converter', block_type: 'collection'}
+
+    EzSystems\EzPlatformPageMigration\Converter\AttributeConverter\ConverterRegistry: ~
+
+    EzSystems\EzPlatformPageMigration\Converter\AttributeConverter\XmlProcessor: ~
+
+    EzSystems\EzPlatformPageMigration\Converter\FieldValueConverter: ~
+
+    EzSystems\EzPlatformPageMigration\Page\PageFactory: ~
+
