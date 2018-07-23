@@ -1,7 +1,7 @@
 {
     "name": "ezsystems/ezplatform-page-migration",
     "description": "eZ Platform Page FieldType Migration Tool",
-    "license": "TTL-2.0",
+    "license": "properitary",
     "type": "ezplatform-bundle",
     "authors": [
         {
