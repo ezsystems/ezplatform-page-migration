@@ -1,7 +1,7 @@
 {
     "name": "ezsystems/ezplatform-page-migration",
     "description": "eZ Platform Page FieldType Migration Tool",
-    "license": "properitary",
+    "license": "proprietary",
     "type": "ezplatform-bundle",
     "authors": [
         {
