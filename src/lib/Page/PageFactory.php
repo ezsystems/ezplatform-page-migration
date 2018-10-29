@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzPlatformPageMigration\Page;
 
-use EzSystems\EzPlatformPageFieldType\Exception\ZoneNotFoundException;
 use EzSystems\EzPlatformPageFieldType\FieldType\LandingPage\Model\BlockValue;
 use EzSystems\EzPlatformPageFieldType\FieldType\LandingPage\Model\Page;
 use EzSystems\EzPlatformPageFieldType\FieldType\LandingPage\Model\Zone;
@@ -16,6 +15,7 @@ use EzSystems\EzPlatformPageFieldType\FieldType\Page\Block\Definition\BlockAttri
 use EzSystems\EzPlatformPageFieldType\FieldType\Page\Block\Definition\BlockDefinitionFactory;
 use EzSystems\EzPlatformPageFieldType\Registry\LayoutDefinitionRegistry;
 use EzSystems\EzPlatformPageMigration\Converter\AttributeConverter\XmlProcessor;
+use EzSystems\EzPlatformPageMigration\Exception\ZoneNotFoundException;
 use function in_array;
 
 class PageFactory
@@ -77,7 +77,7 @@ class PageFactory
             $zoneId = $zoneElement->getAttribute('id');
 
             if (!in_array($zoneId, $layoutDefinitionZoneIds, true) && !isset($layoutDefinitionZoneIds[$index])) {
-                throw new ZoneNotFoundException($layoutDefinition);
+                throw new ZoneNotFoundException($zoneId, $layoutDefinition);
             }
 
             $zoneName = $zoneElement->getAttribute('name');
