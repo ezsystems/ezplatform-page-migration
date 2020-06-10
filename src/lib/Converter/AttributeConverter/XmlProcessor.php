@@ -10,18 +10,23 @@ namespace EzSystems\EzPlatformPageMigration\Converter\AttributeConverter;
 
 use DOMNode;
 use EzSystems\EzPlatformPageFieldType\FieldType\Page\Block\Definition\BlockDefinition;
+use Psr\Log\LoggerInterface as Logger;
 
 class XmlProcessor
 {
     /** @var \EzSystems\EzPlatformPageMigration\Converter\AttributeConverter\ConverterRegistry */
     private $registry;
 
+    /** @var Psr\Log\LoggerInterface */
+    private $logger;
+
     /**
      * @param \EzSystems\EzPlatformPageMigration\Converter\AttributeConverter\ConverterRegistry $registry
      */
-    public function __construct(ConverterRegistry $registry)
+    public function __construct(ConverterRegistry $registry, Logger $logger)
     {
         $this->registry = $registry;
+        $this->logger = $logger;
     }
 
     /**
@@ -35,6 +40,7 @@ class XmlProcessor
         $converter = $this->registry->getConverter($blockDefinition->getIdentifier());
 
         if (null === $converter) {
+            $this->logger->warning("No converter for BlockDefinition : {$blockDefinition->getIdentifier()}");
             return [];
         }
 
