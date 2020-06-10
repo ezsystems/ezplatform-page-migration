@@ -234,8 +234,23 @@ EOF
      */
     protected function findLandingPages(): array
     {
-        $contentType = $this->contentTypeHandler->loadByIdentifier('landing_page');
-        $contentIds = $this->contentGateway->getContentIdsByContentTypeId($contentType->id);
+        $ezLandingPageContentTypes = [];
+        $contentTypeGroups = $this->contentTypeHandler->loadAllGroups();
+        foreach ($contentTypeGroups as $group) {
+            $contentTypes = $this->contentTypeHandler->loadContentTypes($group->id);
+            foreach ($contentTypes as $contentType) {
+                foreach ($contentType->fieldDefinitions as $fieldDefinition) {
+                    if ($fieldDefinition->fieldType === 'ezlandingpage') {
+                        $ezLandingPageContentTypes[] = $contentType;
+                    }
+                }
+            }
+        }
+
+        $contentIds = [];
+        foreach ($ezLandingPageContentTypes as $contentType) {
+            $contentIds = array_merge($contentIds, $this->contentGateway->getContentIdsByContentTypeId($contentType->id));
+        }
 
         return $contentIds;
     }
