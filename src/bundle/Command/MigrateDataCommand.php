@@ -189,7 +189,14 @@ EOF
                 }
 
                 $languageCode = $field->languageCode;
-                $contentName = current($spiVersionInfo->names);
+
+                // Versions with STATUS_INTERNAL_DRAFT may not have name...
+                if ( $spiVersionInfo->names != null ) {
+                    $contentName = current($spiVersionInfo->names);
+                } else {
+                    $contentName = null;
+                }
+
                 $pageIdentifierString = sprintf(
                     '"%s" [contentId: %s, versionNo: %s, languageCode: %s]',
                     $contentName,
